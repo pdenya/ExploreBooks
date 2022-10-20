@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @goodreads_list_book.rank %>
+</p>
+
+<p>
+  <strong>Book:</strong>
+  <%= @goodreads_list_book.book_id %>
+</p>
+
+<p>
+  <strong>Goodreads list:</strong>
+  <%= @goodreads_list_book.goodreads_list_id %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @goodreads_list_book.score %>
+</p>
+
+<p>
+  <strong>Voted:</strong>
+  <%= @goodreads_list_book.voted %>
+</p>
+
+<%= link_to 'Edit', edit_goodreads_list_book_path(@goodreads_list_book) %> |
+<%= link_to 'Back', goodreads_list_books_path %>

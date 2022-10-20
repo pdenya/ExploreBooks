@@ -1,0 +1,42 @@
+<%= form_with(model: goodreads_list_book) do |form| %>
+  <% if goodreads_list_book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(goodreads_list_book.errors.count, "error") %> prohibited this goodreads_list_book from being saved:</h2>
+
+      <ul>
+        <% goodreads_list_book.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :rank %>
+    <%= form.number_field :rank %>
+  </div>
+
+  <div class="field">
+    <%= form.label :book_id %>
+    <%= form.text_field :book_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :goodreads_list_id %>
+    <%= form.text_field :goodreads_list_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score %>
+  </div>
+
+  <div class="field">
+    <%= form.label :voted %>
+    <%= form.number_field :voted %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

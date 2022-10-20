@@ -1,0 +1,27 @@
+<%= form_with(model: book_genre) do |form| %>
+  <% if book_genre.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(book_genre.errors.count, "error") %> prohibited this book_genre from being saved:</h2>
+
+      <ul>
+        <% book_genre.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :book_id %>
+    <%= form.text_field :book_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :genre_id %>
+    <%= form.text_field :genre_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

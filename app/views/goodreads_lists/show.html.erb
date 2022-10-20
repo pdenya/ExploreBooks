@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Goodreads:</strong>
+  <%= @goodreads_list.goodreads_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @goodreads_list.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @goodreads_list.description %>
+</p>
+
+<%= link_to 'Edit', edit_goodreads_list_path(@goodreads_list) %> |
+<%= link_to 'Back', goodreads_lists_path %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Goodreads List Books</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Book</th>
+      <th>Goodreads list</th>
+      <th>Score</th>
+      <th>Voted</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @goodreads_list_books.each do |goodreads_list_book| %>
+      <tr>
+        <td><%= goodreads_list_book.rank %></td>
+        <td><%= goodreads_list_book.book_id %></td>
+        <td><%= goodreads_list_book.goodreads_list_id %></td>
+        <td><%= goodreads_list_book.score %></td>
+        <td><%= goodreads_list_book.voted %></td>
+        <td><%= link_to 'Show', goodreads_list_book %></td>
+        <td><%= link_to 'Edit', edit_goodreads_list_book_path(goodreads_list_book) %></td>
+        <td><%= link_to 'Destroy', goodreads_list_book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Goodreads List Book', new_goodreads_list_book_path %>

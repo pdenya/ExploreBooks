@@ -1,0 +1,87 @@
+<%= form_with(model: book) do |form| %>
+  <% if book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+        <% book.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :goodreads_id %>
+    <%= form.number_field :goodreads_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :authors %>
+    <%= form.text_field :authors %>
+  </div>
+
+  <div class="field">
+    <%= form.label :average_rating %>
+    <%= form.text_field :average_rating %>
+  </div>
+
+  <div class="field">
+    <%= form.label :isbn %>
+    <%= form.text_field :isbn %>
+  </div>
+
+  <div class="field">
+    <%= form.label :isbn13 %>
+    <%= form.text_field :isbn13 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :language_code %>
+    <%= form.text_field :language_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :num_pages %>
+    <%= form.number_field :num_pages %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ratings_count %>
+    <%= form.number_field :ratings_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :text_reviews_count %>
+    <%= form.number_field :text_reviews_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :publication_date %>
+    <%= form.date_select :publication_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :publisher %>
+    <%= form.text_field :publisher %>
+  </div>
+
+  <div class="field">
+    <%= form.label :genres %>
+    <%= form.text_field :genres %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

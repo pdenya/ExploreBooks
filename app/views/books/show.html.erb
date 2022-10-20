@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Goodreads:</strong>
+  <%= @book.goodreads_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Authors:</strong>
+  <%= @book.authors %>
+</p>
+
+<p>
+  <strong>Average rating:</strong>
+  <%= @book.average_rating %>
+</p>
+
+<p>
+  <strong>Isbn:</strong>
+  <%= @book.isbn %>
+</p>
+
+<p>
+  <strong>Isbn13:</strong>
+  <%= @book.isbn13 %>
+</p>
+
+<p>
+  <strong>Language code:</strong>
+  <%= @book.language_code %>
+</p>
+
+<p>
+  <strong>Num pages:</strong>
+  <%= @book.num_pages %>
+</p>
+
+<p>
+  <strong>Ratings count:</strong>
+  <%= @book.ratings_count %>
+</p>
+
+<p>
+  <strong>Text reviews count:</strong>
+  <%= @book.text_reviews_count %>
+</p>
+
+<p>
+  <strong>Publication date:</strong>
+  <%= @book.publication_date %>
+</p>
+
+<p>
+  <strong>Publisher:</strong>
+  <%= @book.publisher %>
+</p>
+
+<p>
+  <strong>Genres:</strong>
+  <%= @book.genres %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @book.description %>
+</p>
+
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>
