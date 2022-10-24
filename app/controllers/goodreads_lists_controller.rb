@@ -3,7 +3,7 @@ class GoodreadsListsController < ApplicationController
 
 	# GET /goodreads_lists or /goodreads_lists.json
 	def index
-		@goodreads_lists = GoodreadsList.all
+		@goodreads_lists = GoodreadsList.all.page(params[:page] || 1).per(50)
 	end
 
 	# GET /goodreads_lists/1 or /goodreads_lists/1.json

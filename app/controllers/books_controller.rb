@@ -3,7 +3,7 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all.limit(100)
+    @books = Book.all.page(params[:page] || 1).per(50)
   end
 
   # GET /books/1 or /books/1.json

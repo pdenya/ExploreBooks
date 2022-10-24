@@ -27,6 +27,8 @@ class GoodreadsList < ApplicationRecord
 					voted: tr.css('a:contains("voted")').first.text.gsub(/[^\d]/,'').to_i
 				)
 			end
+
+			sleep 5
 		end
 
 		self.save
