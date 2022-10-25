@@ -8,6 +8,13 @@ class GoodreadsListsController < ApplicationController
 
 	# GET /goodreads_lists/1 or /goodreads_lists/1.json
 	def show
+		@genre_counts = {}
+
+		@goodreads_list.books.joins(:genres).group('genres.id')
+					.select('genres.name as genre_name, count(books.id) as genre_count')
+					.each do |b|
+						@genre_counts[b['genre_name']] = b['genre_count']
+					end
 	end
 
 	# GET /goodreads_lists/new

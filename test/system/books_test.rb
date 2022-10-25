@@ -41,7 +41,7 @@ class BooksTest < ApplicationSystemTestCase
     fill_in "Authors", with: @book.authors
     fill_in "Average rating", with: @book.average_rating
     fill_in "Description", with: @book.description
-    fill_in "Genres", with: @book.genres
+    fill_in "Genres", with: @book.genre_names
     fill_in "Goodreads", with: @book.goodreads_id
     fill_in "Isbn", with: @book.isbn
     fill_in "Isbn13", with: @book.isbn13

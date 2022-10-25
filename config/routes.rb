@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   resources :genres
   resources :goodreads_list_books
   resources :goodreads_lists
-  resources :books
+  resources :books do
+    collection do
+      get 'explore'
+    end
+  end
+
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

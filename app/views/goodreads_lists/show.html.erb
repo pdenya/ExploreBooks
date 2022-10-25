@@ -17,3 +17,17 @@
 
 <%= link_to 'Edit', edit_goodreads_list_path(@goodreads_list) %> |
 <%= link_to 'Back', goodreads_lists_path %>
+
+
+<% if @genre_counts %>
+  <% @genre_counts.keys.sort_by { |key| @genre_counts[key]  }.reverse.map do |key| %>
+    <div class="row">
+      <div class="col">
+        <%=  key  %>
+      </div>
+      <div class="col">
+        <%=  @genre_counts[key] %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

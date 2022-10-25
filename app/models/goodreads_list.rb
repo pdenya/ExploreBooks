@@ -1,6 +1,12 @@
 class GoodreadsList < ApplicationRecord
 
+	has_many :goodreads_list_books
+	has_many :books, :through => :goodreads_list_books
+
 	def import
+		last_id = Book.last.id
+		t1 = Time.now
+
 		40.times do |page|
 			response = HTTParty.get("https://www.goodreads.com/list/show/#{self.goodreads_id}?page=#{page + 1}")
 			doc = Nokogiri::HTML(response.body)
@@ -31,7 +37,10 @@ class GoodreadsList < ApplicationRecord
 			sleep 5
 		end
 
+		self.imported_at = DateTime.now
 		self.save
+
+		Rails.logger.info "Imported #{Book.last.id - last_id}/#{self.goodreads_list_books.count} in #{Time.now - t1} seconds"
 	end
 
 end

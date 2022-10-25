@@ -3,7 +3,11 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all.page(params[:page] || 1).per(50)
+    if params[:goodreads_list_id]
+      @books = GoodreadsList.find(params[:goodreads_list_id]).books
+    else
+      @books = Book.all.page(params[:page] || 1).per(50)
+    end
   end
 
   # GET /books/1 or /books/1.json

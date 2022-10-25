@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_20_192833) do
+ActiveRecord::Schema.define(version: 2022_10_25_024714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2022_10_20_192833) do
     t.integer "text_reviews_count"
     t.date "publication_date"
     t.string "publisher"
-    t.string "genres"
+    t.string "genre_names"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 2022_10_20_192833) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "imported_at"
+    t.index ["goodreads_id"], name: "index_goodreads_lists_on_goodreads_id", unique: true
   end
 
   add_foreign_key "book_genres", "books"
