@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root  'home#home'
+
   resources :book_genres
   resources :genres
   resources :goodreads_list_books

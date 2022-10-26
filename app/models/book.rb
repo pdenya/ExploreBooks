@@ -29,7 +29,7 @@ class Book < ApplicationRecord
 				self.text_reviews_count ||= driver.find_element(css: 'meta[itemprop="reviewCount"]')['content'].to_i
 				self.publication_date ||= Date.parse(driver.find_element(xpath: "//div[@class='row' and contains(text(),'Published')]").text)
 				self.publisher ||= driver.find_element(xpath: "//div[@class='row' and contains(text(),'Published')]").text.strip.split('by').last.strip
-				self.genre_names ||= driver.find_elements(css: 'a.bookPageGenreLink').map(&:text).join('|')
+				self.genre_names ||= driver.find_elements(css: 'a.bookPageGenreLink').map(&:text).uniq.join('|')
 				self.description ||= driver.find_element(css: '#description').text.strip
 			else
 				#newer goodreads layout
@@ -47,7 +47,7 @@ class Book < ApplicationRecord
 				self.publication_date ||= Date.parse(driver.find_element(xpath: "//div[@class='BookDetails']//p[contains(text(),'published')]").text)
 				# can't find publisher rn
 				#self.publisher ||= driver.find_element(xpath: "//div[@class='row' and contains(text(),'Published')]").text.strip.split('by').last.strip
-				self.genre_names ||= driver.find_elements(css: 'span.BookPageMetadataSection__genreButton').map(&:text).join('|')
+				self.genre_names ||= driver.find_elements(css: 'span.BookPageMetadataSection__genreButton').map(&:text).uniq.join('|')
 				self.description ||= driver.find_element(css: '.BookPageMetadataSection__description').text
 			end
 		rescue => e
