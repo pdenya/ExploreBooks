@@ -3,6 +3,9 @@
 	<head>
 		<title>BookSearch</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
 		<%= csrf_meta_tags %>
 		<%= csp_meta_tag %>
 
@@ -20,6 +23,7 @@
 				<a href="/books" class="btn btn-primary">Books</a>
 				<a href="/goodreads_lists" class="btn btn-primary">Goodreads Lists</a>
 				<a href="/goodreads_list_books" class="btn btn-primary">Goodreads Lists Books</a>
+				<a href="/books/explore" class="btn btn-primary">Explore</a>
 			</div>
 		</div>
 		<%= yield %>

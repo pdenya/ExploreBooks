@@ -24,7 +24,7 @@ class Book < ApplicationRecord
 				self.isbn13 ||= driver.find_element(css: 'meta[property="books:isbn"]')['content']
 				self.isbn ||= driver.find_element(xpath:'//*[@id="bookDataBox"]/div[2]/div[2]').text.to_i.to_s
 				self.language_code ||= driver.find_element(css: 'div[itemprop="inLanguage"]').attribute('innerHTML')
-				self.num_pages ||= driver.find_element(css: 'span[itemprop="numberOfPages"]').text.to_i
+				self.num_pages ||= driver.find_element(css: 'span[itemprop="numberOfPages"]').text.to_i rescue nil
 				self.ratings_count ||= driver.find_element(css: 'meta[itemprop="ratingCount"]')['content'].to_i
 				self.text_reviews_count ||= driver.find_element(css: 'meta[itemprop="reviewCount"]')['content'].to_i
 				self.publication_date ||= Date.parse(driver.find_element(xpath: "//div[@class='row' and contains(text(),'Published')]").text)
@@ -83,12 +83,13 @@ class Book < ApplicationRecord
 	end
 
 	def self.import(return_driver: false)
+		skip_ids = Book.skip_ids
 		imported = 0
 		errors = 0
 		t1 = Time.now
 		@driver = nil
 
-		Book.where(title:nil).order('id DESC').limit(300).each do |book|
+		Book.where(title:nil).where('id NOT IN (?)', skip_ids).order('id DESC').limit(300).each do |book|
 			Rails.logger.info "#{imported} imported, #{errors} errors. Running for #{Time.now - t1} seconds."
 
 			driver = book.import(driver: @driver)
@@ -107,5 +108,9 @@ class Book < ApplicationRecord
 		Rails.logger.info "Complete: #{imported} imported, #{errors} errors. Ran for #{(Time.now - t1)/60} minutes."
 
 		return_driver && @driver ? @driver : @driver.quit
+	end
+
+	def self.skip_ids
+		Dir.entries('.').select{ |f| f  =~ /ror_on_book/ }.map { |f| f.gsub(/[^0-9]/, '') }
 	end
 end
