@@ -1,6 +1,57 @@
 # README
 
-Reach Out:
+The goal is to make very nuanced searches possible.
+
+For example a search:
+ - Genres: Fantasy, Magic Realism
+ - Avoid Genres: Young Adult
+ - Ratings: medium (between 100 - 10,000)
+ - Published Date: After 2001
+ - Page count: >300
+ - Included in lists: Genius protagonists
+ - Not included in lists: Worst books of all time
+
+
+## TODO
+ - automatically add more genres/tags
+ 	- comment analysis
+ 	- lists confer tags
+ 	- lists as tags
+ - import from other sources
+ 	- api?
+ 	- audible?
+ 	- amazon
+ 	- https://openlibrary.org
+ - read tracking, filter out read books
+ 	- mark series as read
+ - cover art
+
+
+### Other Options
+
+https://www.fictiondb.com/search/search.htm
+
+https://www.bookdigits.com - they're giving fairly good recommendations and doing comment analysis to provide additional details
+
+https://www.amazon.com/advanced-search/books
+
+https://books.google.com/advanced_book_search
+
+https://www.whichbook.net/
+
+https://www.librarything.com/suggest
+https://www.librarything.com/work/2410323/recommendations
+
+
+https://manybooks.net/search-book
+
+https://weird-old-book-finder.glitch.me/
+
+https://www.fantasticfiction.com/
+
+http://www.bookfinder4u.com/
+
+### Reach Out
 
 Hey, I want to show you a book app I've been working on soon. I want to prep a demo though. Send me a few goodreads lists you like (imports in seconds, lots is great, 4 minimum) and a few you might filter by.
 
