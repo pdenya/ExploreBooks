@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Reach Out:
 
-Things you may want to cover:
+Hey, I want to show you a book app I've been working on soon. I want to prep a demo though. Send me a few goodreads lists you like (imports in seconds, lots is great, 4 minimum) and a few you might filter by.
 
-* Ruby version
+Example:
 
-* System dependencies
+Good:
 
-* Configuration
+https://www.goodreads.com/list/show/88.Best_Fantasy_Books_of_the_21st_Century#14201
+https://www.goodreads.com/list/show/3153.Big_Fat_Books_Worth_the_Effort#14201
+https://www.goodreads.com/list/show/871.Most_Interesting_Magic_System#14201
+https://www.goodreads.com/list/show/17747.Historical_Fiction_With_a_Dash_of_Magic#14201
+https://www.goodreads.com/list/show/2700.Sci_Fi_and_Fantasy_Must_Reads#14201
 
-* Database creation
+Filter:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+https://www.goodreads.com/list/show/43.Best_Young_Adult_Books#28187
+https://www.goodreads.com/list/show/685.Best_Teen_Young_Adult_Books#28187
+https://www.goodreads.com/list/show/21091.Best_Greek_Novels#28187

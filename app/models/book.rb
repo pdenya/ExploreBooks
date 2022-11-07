@@ -84,12 +84,13 @@ class Book < ApplicationRecord
 
 	def self.import(return_driver: false)
 		skip_ids = Book.skip_ids
+		skip_ids_params = skip_ids.present? ? ['id NOT IN (?)', skip_ids] : nil
 		imported = 0
 		errors = 0
 		t1 = Time.now
 		@driver = nil
 
-		Book.where(title:nil).where('id NOT IN (?)', skip_ids).order('id DESC').limit(300).each do |book|
+		Book.where(title:nil).where(skip_ids_params).order('id DESC').limit(300).each do |book|
 			Rails.logger.info "#{imported} imported, #{errors} errors. Running for #{Time.now - t1} seconds."
 
 			driver = book.import(driver: @driver)
@@ -107,10 +108,18 @@ class Book < ApplicationRecord
 
 		Rails.logger.info "Complete: #{imported} imported, #{errors} errors. Ran for #{(Time.now - t1)/60} minutes."
 
-		return_driver && @driver ? @driver : @driver.quit
+		return_driver || @driver.nil? ? @driver : @driver.quit
 	end
 
 	def self.skip_ids
 		Dir.entries('.').select{ |f| f  =~ /ror_on_book/ }.map { |f| f.gsub(/[^0-9]/, '') }
+	end
+
+	def as_json(options = {})
+		response = super
+
+		response[:genres] = self.genres.as_json
+
+		response
 	end
 end
