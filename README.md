@@ -27,6 +27,12 @@ For example a search:
  - cover art
 
 
+
+## Domain
+
+https://domains.google.com/registrar/explorebooks.app/dns?hl=en
+
+
 ### Other Options
 
 https://www.fictiondb.com/search/search.htm
@@ -50,6 +56,8 @@ https://weird-old-book-finder.glitch.me/
 https://www.fantasticfiction.com/
 
 http://www.bookfinder4u.com/
+
+https://www.bookbrowse.com/
 
 ### Reach Out
 
