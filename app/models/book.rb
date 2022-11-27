@@ -7,7 +7,7 @@ class Book < ApplicationRecord
 		"https://www.goodreads.com/book/show/#{self.goodreads_id}"
 	end
 
-	def import(driver: nil)
+	def import_from_goodreads(driver: nil)
 		Rails.logger.info "Importing #{self.goodreads_id}"
 		driver ||= Selenium::WebDriver.for(:chrome, options: Selenium::WebDriver::Chrome::Options.new(args: ['headless']))
 		driver.get(self.goodreads_link)
@@ -72,8 +72,10 @@ class Book < ApplicationRecord
 		driver
 	end
 
+	# TODO: update this to apply changes in genre_names to genres table
 	def create_genres
-		return unless self.genre_names.present?
+		return unless self.genre_names.present? && self.genres.count == 0
+
 		self.genre_names.split('|').each do |genre_name|
 			genre = Genre.where(name:genre_name).first
 			genre ||= Genre.create(name: genre_name)
@@ -82,7 +84,44 @@ class Book < ApplicationRecord
 		end
 	end
 
-	def self.import(return_driver: false)
+	def self.import_from_openlibrary(ol_work)
+		genre_names = ol_work['subjects'] || []
+
+		ol_work['subject_places'] && ol_work['subject_places'].each do |subject_place|
+			genre_names << "Location:#{subject_place}"
+		end
+
+		ol_work['subject_times'] && ol_work['subject_times'].each do |subject_time|
+			genre_names << "Period:#{subject_time}"
+		end
+
+		ol_work['subject_people'] && ol_work['subject_people'].each do |subject_person|
+			genre_names << "Person:#{subject_person}"
+		end
+
+		return false if Book.find_by(openlibrary_id: ol_work['key'])
+
+		Book.transaction do
+			book = Book.new(
+				title: ol_work['title'],
+				subtitle: ol_work['subtitle'],
+				description: ol_work['description'],
+				created_at: (Time.parse(ol_work['created']['value']) rescue DateTime.now),
+				updated_at: (Time.parse(ol_work['updated_at']['value']) rescue DateTime.now),
+				openlibrary_id: ol_work['key'],
+				authors: (ol_work['authors']['author']['key'] rescue nil),
+				openlibrary_cover_ids: ol_work['covers'] ? ol_work['covers'].join('|') : nil,
+				genre_names: genre_names.join('|')
+			)
+
+			book.save!
+			book.create_genres
+		end
+
+		book
+	end
+
+	def self.import_from_goodreads(return_driver: false)
 		skip_ids = Book.skip_ids
 		skip_ids_params = skip_ids.present? ? ['id NOT IN (?)', skip_ids] : nil
 		imported = 0
@@ -90,10 +129,10 @@ class Book < ApplicationRecord
 		t1 = Time.now
 		@driver = nil
 
-		Book.where(title:nil).where(skip_ids_params).order('id DESC').limit(300).each do |book|
+		Book.where(title:nil).where('goodreads_id IS NOT NULL').where(skip_ids_params).order('id DESC').limit(300).each do |book|
 			Rails.logger.info "#{imported} imported, #{errors} errors. Running for #{Time.now - t1} seconds."
 
-			driver = book.import(driver: @driver)
+			driver = book.import_from_goodreads(driver: @driver)
 			@driver ||= driver
 
 			sleep 15

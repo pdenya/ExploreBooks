@@ -18,10 +18,13 @@ For example a search:
  	- lists confer tags
  	- lists as tags
  - import from other sources
- 	- api?
- 	- audible?
- 	- amazon
- 	- https://openlibrary.org
+    - https://openlibrary.org/dev/docs/api/covers
+ 	- https://openlibrary.org/developers/dumps
+ 	- https://openlibrary.org/developers/api
+ 	- https://isbndb.com/apidocs/v2
+ 	- audible
+ 	- amazon (uses ISBN as ASIN)
+ 	- https://developer.nytimes.com/docs/books-product/1/overview
  - read tracking, filter out read books
  	- mark series as read
  - cover art

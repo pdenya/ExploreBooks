@@ -65,7 +65,7 @@ class BooksController < ApplicationController
 
 
   def tags
-    @books = Book.where('ratings_count > 50')
+    @books = Book.all
 
     if params[:required_genres].present?
       @books = @books.where('id IN (SELECT book_id from book_genres WHERE genre_id IN (?) GROUP BY book_id HAVING COUNT(book_id) = ?)', params[:required_genres], params[:required_genres].length)
@@ -91,17 +91,16 @@ class BooksController < ApplicationController
       @books = @books.where('average_rating < ?', params[:max_avg])
     end
 
+    @total = @books.count
     @books = @books.page(1 || params[:page]).per(20)
 
-    @total = @books.count
-
     @genres = Genre.joins(:books)
-              .where('books.ratings_count > 50')
               .select('genres.*, COUNT(books.id) as book_count')
               .group('genres.id')
               .order('book_count DESC')
+              .limit(3000)
 
-    @genres = @genres.where("books.id IN (#{@books.select(:id).to_sql})")
+    @genres = @genres.where("books.id IN (#{@books.select(:id).to_sql})") if @total < 2000
 
     render json: {
       total: @total,
