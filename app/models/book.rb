@@ -85,6 +85,8 @@ class Book < ApplicationRecord
 	end
 
 	def self.import_from_openlibrary(ol_work)
+		return false if Book.find_by(openlibrary_id: ol_work['key'])
+
 		genre_names = ol_work['subjects'] || []
 
 		ol_work['subject_places'] && ol_work['subject_places'].each do |subject_place|
@@ -99,7 +101,7 @@ class Book < ApplicationRecord
 			genre_names << "Person:#{subject_person}"
 		end
 
-		return false if Book.find_by(openlibrary_id: ol_work['key'])
+		book = nil
 
 		Book.transaction do
 			book = Book.new(
@@ -115,7 +117,7 @@ class Book < ApplicationRecord
 			)
 
 			book.save!
-			book.create_genres
+			#book.create_genres
 		end
 
 		book

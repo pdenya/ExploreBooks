@@ -38,4 +38,47 @@ class OpenLibraryDumpImporter
 
 		infile.close
 	end
+
+	def go_genres
+		t1 = Time.now
+		max_id = BookGenre.order('book_id DESC').first.book_id
+		remaining_count = Book.where('id > ?', max_id).count
+		while remaining_count > 0 do
+			max_id = BookGenre.order('book_id DESC').first.book_id
+			remaining_count = Book.where('id > ?', max_id).count
+			puts "Books Remaining: #{remaining_count}, Time: #{Time.now - t1}"
+			self.process_genres_batch
+		end
+	end
+
+	def process_genres_batch
+		max_id = BookGenre.order('book_id DESC').first.book_id
+
+		books = Book.where('id > ?', max_id).order('id ASC').first(250)
+
+		genres = Genre.where(name: books.map{ |b| b.genre_names.split('|') }.flatten.uniq)
+		genre_name_id_map = {}
+		genres.each { |g| genre_name_id_map[g.name] = g.id }
+
+		book_genre_inserts = []
+
+		books.each do |book|
+			book.genre_names.split('|').each do |gn|
+				# create genre if missing
+				unless genre_name_id_map[gn]
+					new_genre = Genre.create(name: gn)
+					genre_name_id_map[new_genre.name] = new_genre.id
+				end
+
+				book_genre_inserts << {
+					book_id: book.id,
+					genre_id: genre_name_id_map[gn],
+					created_at: DateTime.now,
+					updated_at: DateTime.now,
+				}
+			end
+		end
+
+		BookGenre.insert_all(book_genre_inserts)
+	end
 end
