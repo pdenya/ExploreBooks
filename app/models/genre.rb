@@ -10,4 +10,9 @@ class Genre < ApplicationRecord
 	        .order('book_count DESC')
 	end
 
+	def self.set_cached_counts
+		ActiveRecord::Base.connection.execute(
+			"UPDATE genres SET cached_count=(SELECT COUNT(DISTINCT(book_id)) FROM book_genres WHERE genre_id = genres.id)"
+		)
+	end
 end

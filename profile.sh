@@ -11,3 +11,6 @@ function profile_help {
 
 # run print help function
 profile_help
+
+
+export ELASTICSEARCH_URL="https://elastic:Lrag0HDsUlPaQfSIUvnM@localhost:9200"

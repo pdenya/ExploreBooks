@@ -1,0 +1,85 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+$purple:  #6244b2;
+$purple-light: #9e84e3;
+
+body {
+   background: #2b2b2b;
+}
+
+.bg-purple-light {
+   background: $purple-light;
+}
+
+.bg-purple {
+   background: $purple;
+}
+
+ h1, h2, h3, h4, h5 {
+   font-family: 'Share', sans-serif;
+ }
+
+ body, p {
+   font-family: 'Poppins', sans-serif;
+ }
+
+ .book-description {
+    white-space: pre-wrap;
+    max-height: 55px;
+    overflow: hidden;
+ }
+
+.genre-badge {
+   background: #6e44b2 !important;
+   color: #ece5f0;
+   font-size: 12px;
+   border-radius: 3px;
+   margin-bottom: 4px;
+   white-space: normal;
+}
+
+ .card {
+   overflow: hidden;
+   border: 1px solid rgba(255, 255, 255, .85);
+   box-shadow: 0px 1px 1px rgba(0,0,0,.5);
+   background: #f4e6db;
+ }
+
+ .card:hover {
+   background: #dbcaef;
+ }
+
+ .card-view {
+
+}
+
+ .btn {
+   border-radius: 3px;
+ }
+
+ .btn-primary {
+   background: #44b28a;
+   border-color: #44b28a;
+ }
+
+ .c-pointer {
+   cursor: pointer;
+ }
+
+ a, a:hover, a:active, a:focus {
+   text-decoration: none;
+ }

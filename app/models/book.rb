@@ -104,14 +104,20 @@ class Book < ApplicationRecord
 		book = nil
 
 		Book.transaction do
+			authors = (
+				ol_work['authors'].map{ |author| 
+					author['author']['key'] 
+				}.flatten
+			) rescue nil
+
 			book = Book.new(
 				title: ol_work['title'],
 				subtitle: ol_work['subtitle'],
-				description: ol_work['description'],
-				created_at: (Time.parse(ol_work['created']['value']) rescue DateTime.now),
+				description: ol_work['description'] && ol_work['description']['value'],
+				publication_date: (Time.parse(ol_work['created']['value']) rescue DateTime.now),
 				updated_at: (Time.parse(ol_work['updated_at']['value']) rescue DateTime.now),
 				openlibrary_id: ol_work['key'],
-				authors: (ol_work['authors']['author']['key'] rescue nil),
+				authors: authors.join('|'),
 				openlibrary_cover_ids: ol_work['covers'] ? ol_work['covers'].join('|') : nil,
 				genre_names: genre_names.join('|')
 			)
@@ -156,10 +162,20 @@ class Book < ApplicationRecord
 		Dir.entries('.').select{ |f| f  =~ /ror_on_book/ }.map { |f| f.gsub(/[^0-9]/, '') }
 	end
 
+	def self.repair_descriptions
+		Book.where('description LIKE ?', '%\"%').find_in_batches do |books|
+			puts "Batch size #{books.length}"
+			books.each do |book|
+				#book.description = book.description.gsub(/\\"/, '"')
+				book.save!
+			end
+		end
+	end
+
 	def as_json(options = {})
 		response = super
 
-		response[:genres] = self.genres.as_json
+		response['openlibrary_id'] = response['openlibrary_id'].gsub('/works/', '') if response['openlibrary_id']
 
 		response
 	end

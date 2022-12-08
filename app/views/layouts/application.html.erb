@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>BookSearch</title>
+		<title>ExploreBooks!</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -12,18 +12,28 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
+		<script src="https://kit.fontawesome.com/b4ff678159.js" crossorigin="anonymous"></script>
+
 		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 		<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Share:wght@400;700&display=swap" rel="stylesheet">
 	</head>
 
-	<body>
-		<div class="row">
-			<div class="col"><h2>BookSearch</h2></div>
-			<div class="col-auto">
-				<a href="/books" class="btn btn-primary">Books</a>
-				<a href="/goodreads_lists" class="btn btn-primary">Goodreads Lists</a>
-				<a href="/goodreads_list_books" class="btn btn-primary">Goodreads Lists Books</a>
-				<a href="/books/explore" class="btn btn-primary">Explore</a>
+	<body class="m-0">
+		<div class="bg-purple pt-2">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col"><h2 class="text-white fw-bold">ExploreBooks</h2></div>
+					<div class="col-auto">
+						<a href="/books" class="btn btn-primary">Books</a>
+						<a href="/goodreads_lists" class="btn btn-primary">Goodreads Lists</a>
+						<a href="/goodreads_list_books" class="btn btn-primary">Goodreads Lists Books</a>
+						<a href="/books/explore" class="btn btn-primary">Explore</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		<%= yield %>

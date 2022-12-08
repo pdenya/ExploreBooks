@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_23_220830) do
+ActiveRecord::Schema.define(version: 2022_11_30_223920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,10 @@ ActiveRecord::Schema.define(version: 2022_11_23_220830) do
     t.string "subtitle"
     t.string "openlibrary_id"
     t.string "openlibrary_cover_ids"
+    t.string "isbn10s", default: [], array: true
+    t.string "isbn13s", default: [], array: true
+    t.string "publishers", default: [], array: true
+    t.string "ol_sources", default: [], array: true
     t.index ["openlibrary_id"], name: "index_books_on_openlibrary_id", unique: true
   end
 
@@ -51,6 +55,8 @@ ActiveRecord::Schema.define(version: 2022_11_23_220830) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "cached_count"
+    t.index ["cached_count"], name: "index_genres_on_cached_count"
   end
 
   create_table "goodreads_list_books", force: :cascade do |t|

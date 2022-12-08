@@ -25,6 +25,8 @@ For example a search:
  	- audible
  	- amazon (uses ISBN as ASIN)
  	- https://developer.nytimes.com/docs/books-product/1/overview
+	- Tons of data here - non commercial https://sites.google.com/eng.ucsd.edu/ucsdbookgraph/home?pli=1
+	- https://www.kaggle.com/datasets/bahramjannesarr/goodreads-book-datasets-10m
  - read tracking, filter out read books
  	- mark series as read
  - cover art

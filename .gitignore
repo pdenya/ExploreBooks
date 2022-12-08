@@ -38,3 +38,6 @@ yarn-debug.log*
 *error_on_book*
 
 .DS_Store
+.vscode
+*.txt.gz
+ol_dump*
