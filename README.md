@@ -1,4 +1,4 @@
-# README
+# Explore Books
 
 The goal is to make very nuanced searches possible.
 
@@ -11,6 +11,9 @@ For example a search:
  - Included in lists: Genius protagonists
  - Not included in lists: Worst books of all time
 
+ ## Status
+
+ Retired project. I'd still love to do this but book recommendations were made so incredibly good by LLMs and the driving need for this in my life has waned :)
 
 ## TODO
  - automatically add more genres/tags
@@ -83,3 +86,36 @@ Filter:
 https://www.goodreads.com/list/show/43.Best_Young_Adult_Books#28187
 https://www.goodreads.com/list/show/685.Best_Teen_Young_Adult_Books#28187
 https://www.goodreads.com/list/show/21091.Best_Greek_Novels#28187
+
+
+
+response = Book.search({
+  "query": { 
+    "bool": {
+      "must":[
+          {"term":{"genres": "Fantasy" } },
+          {"term":{"genres": "Magic" } },
+          { "exists": { "field": "description" }}
+        ],
+      "must_not": [
+        {"term":{"genres": "Young Adult" } },
+      ]
+      },
+    },
+ })
+
+
+
+ response = Book.search({
+  "query": { 
+    "bool": {
+      "must":[
+          {"term":{"genres": "Fantasy" } },
+          {"term":{"genres": "Magic" } },
+        ],
+      "must_not": [
+        {"term":{"genres": "Young Adult" } },
+      ]
+      },
+    },
+ })

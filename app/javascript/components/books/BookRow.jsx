@@ -44,7 +44,7 @@ class BookRow extends React.Component {
 							{book.description}
 						</div>
 						<div>
-							{book.genre_names.split("|").map((genre_name) => (
+							{book.genre_names && book.genre_names.split("|").map((genre_name) => (
 								<GenreTag key={genre_name} genre_name={genre_name} />
 							))}
 						</div>

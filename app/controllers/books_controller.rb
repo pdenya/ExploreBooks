@@ -5,8 +5,8 @@ class BooksController < ApplicationController
 
 	# GET /books or /books.json
 	def index
-		# quality => "description IS NOT NULL AND genre_names IS NOT NULL AND openlibrary_cover_ids IS NOT NULL"
-		quality_params = params[:quality] ? "quality = true" : nil
+		quality_query = "description IS NOT NULL AND genre_names IS NOT NULL AND openlibrary_cover_ids IS NOT NULL"
+		quality_params = params[:quality] ? quality_query : nil
 		book_key = "/books/#{params[:quality] ? "quality" : "index"}"
 
 		# all books

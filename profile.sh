@@ -13,4 +13,4 @@ function profile_help {
 profile_help
 
 
-export ELASTICSEARCH_URL="https://elastic:Lrag0HDsUlPaQfSIUvnM@localhost:9200"
+export ELASTICSEARCH_URL="https://elastic:Lrag0HDsUlPaQfSIUvnM@localhost:9200?verify_certs=False"

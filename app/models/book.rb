@@ -1,10 +1,43 @@
+require 'elasticsearch/model'
+
 class Book < ApplicationRecord
 
-	has_many :book_genres
+	include Elasticsearch::Model
+
+	has_many :book_genres, dependent: :delete_all
 	has_many :genres, :through => :book_genres
+
+	QUALITY_DATA_FLAG="QUALITY_DATA"
+
+	mapping do
+		indexes :title, type: :text
+		indexes :description, type: :text
+		indexes :genres, type: :keyword
+		indexes :authors, type: :keyword
+		indexes :publishers, type: :keyword
+	end
 
 	def goodreads_link
 		"https://www.goodreads.com/book/show/#{self.goodreads_id}"
+	end
+
+	def as_indexed_json(options={})
+		response = self.as_json(options)
+		
+		# format keywords
+		response['authors'] = response['authors'].titleize.split('|') if response['authors']
+		response['genres'] = response['genre_names'].titleize.split('|') if response['genre_names']
+
+		# flag good data
+		response['genres'].push(Book::QUALITY_DATA_FLAG) if self.description && self.genre_names && self.openlibrary_cover_ids
+
+		# remove unnecessary fields
+		response.except!('genre_names', 'created_at', 'updated_at', 'goodreads_id', 'openlibrary_id', 'isbn', 'isbn13', 'isbn10s', 'isbn13s')
+		
+		# remove null or "" fields
+		response.delete_if { |k, v| !v.present? }
+		
+		response
 	end
 
 	def import_from_goodreads(driver: nil)
